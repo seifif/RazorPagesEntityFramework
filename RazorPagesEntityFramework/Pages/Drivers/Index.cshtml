@@ -1,0 +1,75 @@
+﻿@page
+@model RazorPagesEntityFramework.Pages.Drivers.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Driver[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Driver[0].FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Driver[0].License)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Driver) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.License)
+            </td>
+            <td>
+                <a asp-page="./Index" asp-route-id="@item.ID">Select</a> |
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@if (Model.Car != null)
+{
+    <h3>
+        Owner of the cars:
+    </h3>
+    <table class="table">
+        <tr>
+            @if (Model.Car.Count() > 0)
+            {
+                <th> Make </th>
+            }
+            else
+            {
+                <th> No car record exist </th>
+            }
+        </tr>
+        @foreach (var item in Model.Car)
+        {
+            <tr>
+                <td>
+                    @item.Make
+                </td>
+            </tr>
+        }
+    </table>
+}
